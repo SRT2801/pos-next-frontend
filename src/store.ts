@@ -7,6 +7,9 @@ interface Store {
   contents: ShoppingCart;
 
   addToCart: (product: Product) => void;
+  updateQuantity: (id: Product["id"], quantity: number) => void;
+  removeFromCart: (id: Product["id"]) => void;
+  calculateTotal: () => void;
 }
 
 export const useStore = create<Store>()(
@@ -15,7 +18,6 @@ export const useStore = create<Store>()(
     contents: [],
     addToCart: (product: Product) => {
       const { id: productId, categoryId, ...data } = product;
-      console.log(product);
       let contents: ShoppingCart = [];
       const duplicated = get().contents.findIndex(
         (item) => item.productId === productId,
@@ -50,6 +52,29 @@ export const useStore = create<Store>()(
       set(() => ({
         contents,
       }));
+
+        get().calculateTotal();
+    },
+
+    updateQuantity: (id, quantity) => {
+      const contents = get().contents.map((item) =>
+        item.productId === id ? { ...item, quantity } : item,
+      );
+      set(() => ({ contents }));
+    },
+
+    removeFromCart: (id) => {
+      set((state) => ({
+        contents: state.contents.filter((item) => item.productId !== id),
+      }));
+    },
+
+    calculateTotal: () => {
+      const total = get().contents.reduce(
+        (total, item) => total + item.quantity * item.price,
+        0,
+      );
+      set(() => ({ total }));
     },
   })),
 );
