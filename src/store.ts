@@ -61,12 +61,15 @@ export const useStore = create<Store>()(
         item.productId === id ? { ...item, quantity } : item,
       );
       set(() => ({ contents }));
+
+      get().calculateTotal();
     },
 
     removeFromCart: (id) => {
       set((state) => ({
         contents: state.contents.filter((item) => item.productId !== id),
       }));
+      get().calculateTotal();
     },
 
     calculateTotal: () => {
