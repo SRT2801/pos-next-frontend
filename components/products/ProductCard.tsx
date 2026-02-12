@@ -15,7 +15,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     alt={`imagen de producto ${product.name}`}
                     width={400}
                     height={600}
-
+                    priority
                 />
 
                 <div className="p-3 space-y-2">
