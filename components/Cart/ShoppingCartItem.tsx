@@ -3,7 +3,7 @@ import { formatCurrency } from "@/src/utils";
 import Image from "next/image";
 import { useStore } from "@/src/store";
 
-export default function ShoppingCartItem({item}: {item: CartItem}) {
+export default function ShoppingCartItem({ item }: { item: CartItem }) {
 
     const updateQuantity = useStore(state => state.updateQuantity);
     const removeFromCart = useStore(state => state.removeFromCart);
@@ -27,9 +27,9 @@ export default function ShoppingCartItem({item}: {item: CartItem}) {
                 <select
                     className="w-32 text-center p-2 rounded-lg bg-gray-100"
                     value={item.quantity}
-                    onChange={(e) => updateQuantity(item.productId, +e.target.value) }
+                    onChange={(e) => updateQuantity(item.productId, +e.target.value)}
                 >
-                    {Array.from({length: item.inventory}, (_, index) => index + 1).map(num =>(
+                    {Array.from({ length: item.inventory }, (_, index) => index + 1).map(num => (
                         <option key={num} value={num}>{num}</option>
                     ))}
 
