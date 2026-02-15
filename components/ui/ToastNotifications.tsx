@@ -2,7 +2,7 @@
 
 import { ToastContainer } from 'react-toastify'
 
-export default function ToastNotification() {
+export default function ToastNotifications() {
   return (
     <ToastContainer />
   )
