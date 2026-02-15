@@ -28,6 +28,10 @@ export default async function MainNav() {
                         {category.name}
                     </Link>
                 ))}
+
+                <Link href={'/admin/sales'} className=" font-bold p-2 rounded bg-green-400 py-2 px-10">
+                    Administración Panel
+                </Link>
             </nav>
         </header>
     )
