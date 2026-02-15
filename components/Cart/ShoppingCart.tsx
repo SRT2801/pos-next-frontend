@@ -4,6 +4,7 @@ import { useStore } from "@/src/store"
 import ShoppingCartItem from "./ShoppingCartItem"
 import Amount from "./Amount"
 import CouponForm from "./CouponForm"
+import SubmitOrderForm from "./SubmitOrderForm"
 
 
 export default function ShoppingCart() {
@@ -30,15 +31,14 @@ export default function ShoppingCart() {
           </ul>
 
           <dl className="space-y-6 border-t border-gray-300 py-6 text-sm font-medium text-gray-500">
-            {discount ? ( 
+            {discount ? (
               <Amount label="Descuento" amount={discount} discount={true} />
             ) : null}
 
             <Amount label="Total" amount={total} />
           </dl>
-          <CouponForm>
-
-          </CouponForm>
+          <CouponForm />
+          <SubmitOrderForm />
 
         </>
 
