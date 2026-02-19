@@ -12,7 +12,7 @@ export const ProductSchema = z.object({
 export const ProductsResponseSchema = z.object({
   products: z.array(ProductSchema),
   total: z.number(),
-})
+});
 
 export const CategorySchema = z.object({
   id: z.number(),
@@ -77,6 +77,21 @@ export const TransactionResponseSchema = z.object({
   discount: z.string(),
   coupon: z.string().nullable(),
   contents: z.array(ContentsSchema),
+});
+
+export const ProductFormSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: "El Nombre del Producto no puede ir vacio" }),
+  price: z.coerce
+    .number({ message: "Precio no válido" })
+    .min(1, { message: "El Precio debe ser mayor a 0" }),
+  inventory: z.coerce
+    .number({ message: "Inventario no válido" })
+    .min(1, { message: "El inventario debe ser mayor a 0" }),
+  categoryId: z.coerce
+    .number({ message: "La Categoria no es válida" })
+    .min(1, { message: "La Categoria es obligatoria" }),
 });
 
 export const TransactionsResponseSchema = z.array(TransactionResponseSchema);
