@@ -6,9 +6,17 @@ const nextConfig: NextConfig = {
     unoptimized: process.env.NODE_ENV === "development",
     remotePatterns: [
       {
+        protocol: "http" ,
+        hostname: process.env.DOMAIN! ,
+      },
+      {
         protocol: "https" ,
         hostname: process.env.DOMAIN! ,
       },
+      {
+        protocol: "https" ,
+        hostname: "res.cloudinary.com" ,
+      }
     ],
   },
 };
