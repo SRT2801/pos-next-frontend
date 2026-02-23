@@ -1,5 +1,5 @@
 import { CartItem } from "@/src/schemas";
-import { formatCurrency } from "@/src/utils";
+import { formatCurrency, getImagePath } from "@/src/utils";
 import Image from "next/image";
 import { useStore } from "@/src/store";
 
@@ -13,7 +13,7 @@ export default function ShoppingCartItem({ item }: { item: CartItem }) {
             <div className='h-24 w-24'>
 
                 <Image
-                    src={`${process.env.NEXT_PUBLIC_API_URL}/img/${item.image}`}
+                    src={getImagePath(item.image)}
                     alt={`Imagen del producto ${item.name}`}
                     width={100}
                     height={100}
