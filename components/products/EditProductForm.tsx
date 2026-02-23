@@ -28,8 +28,9 @@ export default function EditProductForm({ children }: { children: React.ReactNod
         if (state.success) {
             toast.success(state.success);
             router.refresh();
+            router.push('/admin/products?page=1');
         }
-    }, [state]);
+    }, [state, router]);
 
 
 
