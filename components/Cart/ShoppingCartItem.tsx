@@ -9,42 +9,47 @@ export default function ShoppingCartItem({ item }: { item: CartItem }) {
     const removeFromCart = useStore(state => state.removeFromCart);
 
     return (
-        <li className="flex items-center space-x-6 py-6 relative">
-            <div className='h-24 w-24'>
-
+        <div className="flex gap-4 group">
+            <div className="w-20 h-20 bg-slate-100 rounded-xl flex-shrink-0 overflow-hidden">
                 <Image
                     src={getImagePath(item.image)}
                     alt={`Imagen del producto ${item.name}`}
-                    width={100}
-                    height={100}
+                    width={80}
+                    height={80}
                     priority
-                ></Image>
-
+                    className="w-full h-full object-cover"
+                />
             </div>
-            <div className="flex-auto space-y-2">
-                <h3 className="text-gray-900">{item.name}</h3>
-                <p>{formatCurrency(item.price)}</p>
-                <select
-                    className="w-32 text-center p-2 rounded-lg bg-gray-100"
-                    value={item.quantity}
-                    onChange={(e) => updateQuantity(item.productId, +e.target.value)}
-                >
-                    {Array.from({ length: item.inventory }, (_, index) => index + 1).map(num => (
-                        <option key={num} value={num}>{num}</option>
-                    ))}
-
-                </select>
+            <div className="flex-1">
+                <div className="flex justify-between items-start">
+                    <h4 className="font-bold text-sm leading-tight mb-1">{item.name}</h4>
+                    <button
+                        type="button"
+                        onClick={() => removeFromCart(item.productId)}
+                        className="text-slate-400 hover:text-red-500 transition-colors cursor-pointer"
+                    >
+                        <span className="material-icons-round text-lg">close</span>
+                    </button>
+                </div>
+                <p className="text-primary font-bold text-sm mb-3">{formatCurrency(item.price)}</p>
+                <div className="flex items-center gap-3">
+                    <button
+                        type="button"
+                        className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors cursor-pointer"
+                        onClick={() => item.quantity > 1 && updateQuantity(item.productId, item.quantity - 1)}
+                    >
+                        <span className="material-icons-round text-sm">remove</span>
+                    </button>
+                    <span className="font-bold">{item.quantity}</span>
+                    <button
+                        type="button"
+                        className="w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center hover:bg-slate-50 transition-colors cursor-pointer"
+                        onClick={() => item.quantity < item.inventory && updateQuantity(item.productId, item.quantity + 1)}
+                    >
+                        <span className="material-icons-round text-sm">add</span>
+                    </button>
+                </div>
             </div>
-            <div className='absolute top-10 right-0'>
-                <button
-                    type="button"
-                    onClick={() => removeFromCart(item.productId)}
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 text-red-500 cursor-pointer">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </button>
-            </div>
-        </li>
+        </div>
     )
 }
