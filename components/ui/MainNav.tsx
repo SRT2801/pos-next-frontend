@@ -13,23 +13,24 @@ async function getCategories() {
 export default async function MainNav() {
     const categories = await getCategories()
     return (
-        <header className="px-10 py-5 bg-gray-700 flex flex-col md:flex-row justify-between ">
-            <div className="flex justify-center">
+        <nav className="bg-[#1e293b] text-white px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-lg">
+            <div className="flex items-center space-x-8">
                 <Logo />
+                <div className="hidden md:flex space-x-6 text-sm font-semibold uppercase tracking-wider">
+                    {categories.map(category => (
+                        <Link
+                            key={category.id}
+                            href={`/${category.id}`}
+                            className="hover:text-emerald-400 transition-colors">
+                            {category.name}
+                        </Link>
+                    ))}
+                </div>
             </div>
 
-            <nav className="flex flex-col md:flex-row gap-2 items-center mt-5 md:mt-0">
-                {categories.map(category => (
-                    <Link
-                        key={category.id}
-                        href={`/${category.id}`}
-                        className="text-white hover:text-green-400 font-bold p-2">
-                        {category.name}
-                    </Link>
-                ))}
-
+            <div className="flex items-center space-x-6">
                 <AuthNavLinks />
-            </nav>
-        </header>
+            </div>
+        </nav>
     )
 }
