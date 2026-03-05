@@ -11,13 +11,12 @@ export default function RootLayout({
     return (
         <>
             <MainNav />
-            <main className="lg:flex  lg:h-screen lg:overflow-y-hidden">
-                <div className="md:flex-1 md:h-screen md:overflow-y-scroll pt-10  pb-32 px-10">
+            <main className="flex flex-1 overflow-hidden h-[calc(100vh-64px)]">
+                <div className="flex-1 overflow-y-auto p-6 space-y-8">
                     {children}
                 </div>
-                <aside className="md:w-96 md:h-screen md:overflow-y-scroll pt-10 pb-32 px-5 bg-white ">
+                <aside className="w-[400px] bg-surface-light border-l border-slate-200 flex flex-col shadow-2xl hidden lg:flex">
                     <ShoppingCart />
-
                 </aside>
             </main>
 
