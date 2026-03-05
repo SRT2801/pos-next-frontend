@@ -56,11 +56,14 @@ export default function SubmitOrderForm() {
             />
 
             <form action={handleSubmit}>
-
-                <input type="submit"
-                    className="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white uppercase font-bold p-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                    value={"Confirmar Compra"}
-                    disabled={isPending} />
+                <button
+                    type="submit"
+                    className="w-full bg-indigo-700 hover:bg-indigo-800 text-white py-4 rounded-2xl font-black text-lg shadow-lg shadow-primary/30 transition-all flex items-center justify-center gap-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isPending}
+                >
+                    <span className="material-icons-round">payment</span>
+                    PAGAR AHORA
+                </button>
             </form>
         </>
     )
