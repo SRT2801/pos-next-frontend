@@ -34,7 +34,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
     return (
         <>
             <Link href="/admin/products/new"
-                className="rounded bg-green-400 font-bold py-2 px-10">Crear producto</Link>
+                className="rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-6 sm:px-10 text-sm sm:text-base transition-colors inline-block">Crear producto</Link>
 
             <Heading>Administración de productos</Heading>
 
