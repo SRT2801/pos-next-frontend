@@ -29,10 +29,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-200">
+    <div className="min-h-screen flex items-center justify-center bg-background-light px-4">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md space-y-6 bg-white p-8 rounded-lg shadow-lg"
+        className="w-full max-w-md space-y-6 bg-white p-6 sm:p-8 rounded-xl shadow-lg"
       >
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Iniciar Sesión
