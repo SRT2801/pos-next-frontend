@@ -27,18 +27,15 @@ export function isValidPage(value: number) {
 }
 
 export function getImagePath(image: string) {
-  const cloudinaryBaseUrl = 'https://res.cloudinary.com';
-  if (image.startsWith(cloudinaryBaseUrl)) {
+  if (image.startsWith("http://") || image.startsWith("https://")) {
     return image;
   } else {
     if (process.env.API_URL) {
       return `${process.env.API_URL}/img/${image}`;
-    } else{
+    } else {
       return `${process.env.NEXT_PUBLIC_API_URL}/img/${image}`;
     }
   }
 }
-
-
 
 export const isAvalilable = (inventory: number) => inventory > 0;
