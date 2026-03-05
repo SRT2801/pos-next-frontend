@@ -6,18 +6,28 @@ import Image from "next/image";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-export default function UploadProductImage({currentImage}: {currentImage?: string}) {
+export default function UploadProductImage({ currentImage }: { currentImage?: string }) {
 
     const [image, setImage] = useState("");
+    const [preview, setPreview] = useState("");
 
-    const onDrop = useCallback (async (files: File[]) => {
+    const onDrop = useCallback(async (files: File[]) => {
+        const file = files[0];
+        if (file) {
+            setPreview(URL.createObjectURL(file));
+        }
+
         const formData = new FormData();
-        files.forEach((file) => {
-            formData.append("file", file);
-        });
+        formData.append("file", file);
 
-        const image =  await uploadImage(formData);
-        setImage(image);
+        try {
+            const uploadedUrl = await uploadImage(formData);
+            setImage(uploadedUrl);
+            setPreview("");
+        } catch {
+            setPreview("");
+            setImage("");
+        }
 
     }, [])
     const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
@@ -50,35 +60,36 @@ export default function UploadProductImage({currentImage}: {currentImage?: strin
             </div>
 
 
-            {image && (
+            {(preview || image) && (
                 <div className="py-5 space-y-5">
                     <p className="font-bold">Imagen de Producto:</p>
                     <div className="w-75 h-105 relative">
                         <Image
-                        src={image}
-                        alt="Imagen del producto"
-                        className="object-cover"
-                        fill
+                            src={preview || image}
+                            alt="Imagen del producto"
+                            className="object-cover"
+                            fill
+                            unoptimized={!!preview}
                         />
                     </div>
                 </div>
             )}
 
-            {currentImage && !image && (
+            {currentImage && !image && !preview && (
                 <div className="py-5 space-y-5">
                     <p className="font-bold">Imagen actual:</p>
                     <div className="w-75 h-105 relative">
                         <Image
-                        src={getImagePath(currentImage)}
-                        alt="Imagen del producto"
-                        className="object-cover"
-                        fill
+                            src={getImagePath(currentImage)}
+                            alt="Imagen del producto"
+                            className="object-cover"
+                            fill
                         />
                     </div>
                 </div>
             )}
 
-            <input type="hidden" name="image" value={image ? image : currentImage} />
+            <input type="hidden" name="image" value={image || currentImage || ""} />
 
         </>
     )
