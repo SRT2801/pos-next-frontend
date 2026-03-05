@@ -4,19 +4,17 @@ type AmountProps = {
     label: string;
     amount: number;
     discount?: boolean;
-
 }
 
 export default function Amount({ label, amount, discount }: AmountProps) {
     return (
-        <div className={`${discount && "line-through text-red-500"} flex justify-between`}>
-            <dt className="font-bold">
+        <div className="flex justify-between">
+            <span className={`${discount ? 'text-red-500' : 'text-slate-500'}`}>
                 {label}
-            </dt>
-
-            <dd className="text-gray-900">
-                {discount && <span className="line-through text-red-500">Discount: </span>}{formatCurrency(amount)}
-            </dd>
+            </span>
+            <span className={`font-bold ${discount ? 'line-through text-red-500' : label === 'Total' ? 'text-3xl font-extrabold text-primary' : ''}`}>
+                {formatCurrency(amount)}
+            </span>
         </div>
     )
 }
