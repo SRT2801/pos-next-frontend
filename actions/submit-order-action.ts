@@ -8,7 +8,11 @@ import {
 import { serverApiFetch } from "@/services/serverApi";
 import { revalidatePath } from "next/cache";
 
-export async function submitOrderAction(data: unknown) {
+export async function submitOrderAction(
+  data: unknown,
+  prevState: { errors: string[]; success: string },
+  formData: FormData,
+) {
   const order = OrderSchema.parse(data);
 
   try {
