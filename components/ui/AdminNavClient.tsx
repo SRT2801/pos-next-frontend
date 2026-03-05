@@ -15,39 +15,44 @@ export default function AdminNavClient() {
   };
 
   return (
-    <header className="px-10 py-5 bg-gray-700 flex justify-between">
-      <div className="flex gap-5 text-white">
+    <nav className="bg-surface-dark text-white px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-lg">
+      <div className="flex items-center space-x-8">
         <Logo />
+        <div className="hidden md:flex space-x-6 text-sm font-semibold uppercase tracking-wider">
+          <Link
+            href={'/admin/products'}
+            className="hover:text-emerald-400 transition-colors"
+          >Productos</Link>
+
+          <Link
+            href={'/admin/sales'}
+            className="hover:text-emerald-400 transition-colors"
+          >Ventas</Link>
+        </div>
       </div>
 
-      <div className="flex gap-2 items-center">
-        <Link
-          href={'/admin/products'}
-          className="rounded text-white font-bold p-2"
-        >Productos</Link>
-
-        <Link
-          href={'/admin/sales'}
-          className="rounded text-white font-bold p-2"
-        >Ventas</Link>
-
+      <div className="flex items-center space-x-6">
         <Link
           href={'/'}
-          className="rounded bg-green-400 font-bold py-2 px-10"
+          className="bg-emerald-500 hover:bg-emerald-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md"
         >Tienda</Link>
 
         {user && (
           <>
-            <span className="text-gray-300 text-sm">{user.email}</span>
+            <div className="hidden lg:flex flex-col items-end">
+              <span className="text-xs text-slate-400">Sesión iniciada como</span>
+              <span className="text-sm font-medium">{user.email}</span>
+            </div>
             <button
               onClick={handleLogout}
-              className="rounded bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 transition-colors"
+              className="bg-secondary hover:bg-red-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md flex items-center gap-2 cursor-pointer"
             >
+              <span className="material-icons-round text-base">logout</span>
               Cerrar Sesión
             </button>
           </>
         )}
       </div>
-    </header>
+    </nav>
   );
 }
