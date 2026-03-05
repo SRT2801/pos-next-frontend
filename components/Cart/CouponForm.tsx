@@ -17,29 +17,32 @@ export default function CouponForm() {
 
   return (
     <>
-      <p className="py-5 font-bold border-t border-gray-300">Canjear Cupón</p>
-      <form
-        className="flex"
-        onSubmit={handleSubmit}
-      >
-        <input
-          type="text"
-          className="p-2 bg-gray-200 border-gray-300 w-full"
-          placeholder="Ingresa un cupón"
-          name="coupon_name"
-        />
-        <input
-          type="submit"
-          className="p-3 bg-green-400 font-bold hover:cursor-pointer"
-          value='Canjear'
-        />
-      </form>
+      <div className="pt-3 border-t border-slate-200">
+        <p className="text-xs font-bold text-slate-500 uppercase mb-2">Cupón de descuento</p>
+        <form
+          className="flex gap-2"
+          onSubmit={handleSubmit}
+        >
+          <input
+            type="text"
+            className="flex-1 px-3 py-2 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
+            placeholder="Ingresa un cupón"
+            name="coupon_name"
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-lg transition-colors cursor-pointer"
+          >
+            Canjear
+          </button>
+        </form>
 
-      {coupon.message ? (
-        <p className={`mt-2 font-bold  py-4  text-center text-sm ${coupon.percentage ? "text-green-600" : "text-red-600"}`}>
-          {coupon.message}
-        </p>
-      ) : null}
+        {coupon.message ? (
+          <p className={`mt-2 text-center text-xs font-bold ${coupon.percentage ? "text-emerald-600" : "text-red-500"}`}>
+            {coupon.message}
+          </p>
+        ) : null}
+      </div>
     </>
   )
 }
