@@ -1,17 +1,14 @@
+import { serverApiFetch } from "@/services/serverApi";
 import { CategoriesResponseSchema, Product } from "@/src/schemas";
 import UploadProductImage from "./UploadProductImage";
 
 async function getCategories() {
-    const url = `${process.env.API_URL}/categories`;
-    const req = await fetch(url)
-    const json = await req.json();
+    const json = await serverApiFetch("/categories");
     const categories = CategoriesResponseSchema.parse(json);
     return categories;
-
-
 }
 
-export default async function ProductForm({product}: {product?: Product}) {
+export default async function ProductForm({ product }: { product?: Product }) {
 
     const categories = await getCategories();
 
