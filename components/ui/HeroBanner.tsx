@@ -43,7 +43,7 @@ export default function HeroBanner() {
     const slide = slides[current]
 
     return (
-        <section className="relative h-64 rounded-2xl overflow-hidden shadow-xl group cursor-pointer mb-8">
+        <section className="relative h-40 sm:h-52 md:h-64 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl group cursor-pointer mb-6 sm:mb-8">
             <Image
                 src={slide.image}
                 alt={slide.title}
@@ -51,28 +51,28 @@ export default function HeroBanner() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 priority
             />
-            <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent flex items-center p-12">
+            <div className="absolute inset-0 bg-linear-to-r from-black/60 to-transparent flex items-center p-4 sm:p-8 md:p-12">
                 <div className="max-w-md">
-                    <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase mb-4 inline-block">
+                    <span className="bg-emerald-500 text-white px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase mb-2 sm:mb-4 inline-block">
                         {slide.tag}
                     </span>
-                    <h1 className="text-4xl font-extrabold text-white mb-4">{slide.title}</h1>
-                    <p className="text-slate-200 mb-6">{slide.description}</p>
+                    <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white mb-1 sm:mb-4">{slide.title}</h1>
+                    <p className="text-slate-200 text-xs sm:text-sm md:text-base mb-2 sm:mb-6 line-clamp-2">{slide.description}</p>
                 </div>
             </div>
 
             {/* Navigation arrows */}
             <button
                 onClick={prev}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
             >
-                <span className="material-icons-round">chevron_left</span>
+                <span className="material-icons-round text-lg sm:text-2xl">chevron_left</span>
             </button>
             <button
                 onClick={next}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white w-10 h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 cursor-pointer"
             >
-                <span className="material-icons-round">chevron_right</span>
+                <span className="material-icons-round text-lg sm:text-2xl">chevron_right</span>
             </button>
 
             {/* Dots */}
