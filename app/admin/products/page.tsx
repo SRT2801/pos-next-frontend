@@ -1,3 +1,4 @@
+import { serverApiFetch } from "@/services/serverApi";
 import ProductsTable from "@/components/products/ProductsTable";
 import Heading from "@/components/ui/Headings";
 import Pagination from "@/components/ui/Pagination";
@@ -7,9 +8,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 async function getProducts(take: number, skip: number) {
-    const url = `${process.env.API_URL}/products?take=${take}&skip=${skip}`;
-    const req = await fetch(url)
-    const json = await req.json();
+    const json = await serverApiFetch(`/products?take=${take}&skip=${skip}`);
     const data = ProductsResponseSchema.parse(json);
     return {
         products: data.products,
@@ -34,14 +33,14 @@ export default async function ProductsPage({ searchParams }: { searchParams: Sea
 
     return (
         <>
-            <Link href="/admin/products/new" 
-            className="rounded bg-green-400 font-bold py-2 px-10">Crear producto</Link>
+            <Link href="/admin/products/new"
+                className="rounded bg-green-400 font-bold py-2 px-10">Crear producto</Link>
 
             <Heading>Administración de productos</Heading>
 
             <ProductsTable products={products} />
 
-            <Pagination 
+            <Pagination
                 page={+page.page}
                 totalPages={totalPages}
                 basePath="/admin/products"
