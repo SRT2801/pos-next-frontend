@@ -15,37 +15,52 @@ export default function ShoppingCart() {
 
   return (
     <>
+      <div className="p-6 border-b border-slate-200 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="material-icons-round text-primary">shopping_cart</span>
+          <h2 className="text-xl font-extrabold">Carrito</h2>
+        </div>
+        <span className="bg-slate-100 text-slate-500 px-3 py-1 rounded-full text-xs font-bold">
+          {contents.length} Ítems
+        </span>
+      </div>
 
       {contents.length ? (
         <>
-          <h2 className='text-4xl font-bold text-gray-900'> Resumen de Venta</h2>
-
-          <ul role="list" className="mt-6 divide-y divide-gray-200 border-gray-200 text-sm font-medium text-gray-500" >
-            {contents.map((item) => (
-              <ShoppingCartItem
-                key={item.productId}
-                item={item}
-              />
+          <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            {contents.map((item, index) => (
+              <div key={item.productId}>
+                <ShoppingCartItem item={item} />
+                {index < contents.length - 1 && (
+                  <div className="h-px bg-slate-100 mt-4"></div>
+                )}
+              </div>
             ))}
+          </div>
 
-          </ul>
+          <div className="p-6 bg-slate-50 border-t border-slate-200 space-y-4">
+            <CouponForm />
 
-          <dl className="space-y-6 border-t border-gray-300 py-6 text-sm font-medium text-gray-500">
-            {discount ? (
-              <Amount label="Descuento" amount={discount} discount={true} />
-            ) : null}
+            <div className="space-y-2 text-sm">
+              {discount ? (
+                <Amount label="Descuento" amount={discount} discount={true} />
+              ) : null}
+              <Amount label="Total" amount={total} />
+            </div>
 
-            <Amount label="Total" amount={total} />
-          </dl>
-          <CouponForm />
-          <SubmitOrderForm />
-
+            <div className="pt-4 border-t border-slate-200">
+              <SubmitOrderForm />
+            </div>
+          </div>
         </>
-
       ) : (
-        <p className="text-xl text-center text-gray-900">No hay productos en el carrito</p>
+        <div className="flex-1 flex items-center justify-center p-6">
+          <div className="text-center">
+            <span className="material-icons-round text-6xl text-slate-300 mb-4 block">shopping_cart</span>
+            <p className="text-slate-500 font-medium">No hay productos en el carrito</p>
+          </div>
+        </div>
       )}
-
     </>
   )
 }
