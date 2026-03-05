@@ -5,34 +5,38 @@ import {
   OrderSchema,
   SuccessResponseSchema,
 } from "@/src/schemas";
-import { revalidateTag } from "next/cache";
+import { serverApiFetch } from "@/services/serverApi";
+import { revalidatePath } from "next/cache";
 
 export async function submitOrderAction(data: unknown) {
   const order = OrderSchema.parse(data);
-  const url = `${process.env.API_URL}/transactions`;
-  const req = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ...order }),
-  });
 
-  const json = await req.json();
+  try {
+    const json = await serverApiFetch("/transactions", {
+      method: "POST",
+      body: JSON.stringify({ ...order }),
+    });
 
-  if (!req.ok) {
-    const errors = ErrorResponseSchema.parse(json);
+    const success = SuccessResponseSchema.parse(json);
+    revalidatePath("/");
+
     return {
-      errors: errors.message.map((issue) => issue),
+      errors: [],
+      success: success.message,
+    };
+  } catch (error: any) {
+    if (error?.message) {
+      const errors = ErrorResponseSchema.safeParse(error);
+      if (errors.success) {
+        return {
+          errors: errors.data.message.map((issue) => issue),
+          success: "",
+        };
+      }
+    }
+    return {
+      errors: ["Error al realizar la compra"],
       success: "",
     };
   }
-
-  const success = SuccessResponseSchema.parse(json);
-  revalidateTag("products-by-category", "default");
-
-  return {
-    errors: [],
-    success: success.message,
-  };
 }
