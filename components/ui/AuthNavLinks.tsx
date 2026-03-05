@@ -24,11 +24,12 @@ export default function AuthNavLinks() {
     router.push("/login");
   };
 
-  // No renderizar hasta que estemos en el cliente para evitar hydration mismatch
+
   if (!mounted) {
     return (
-      <Link href={"/login"} className="bg-primary hover:bg-indigo-700 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md text-white">
-        Iniciar Sesión
+      <Link href={"/login"} className="bg-primary hover:bg-indigo-700 transition-colors px-3 sm:px-5 py-2 rounded-lg font-bold text-xs sm:text-sm shadow-md text-white">
+        <span className="hidden sm:inline">Iniciar Sesión</span>
+        <span className="sm:hidden material-icons-round text-base">login</span>
       </Link>
     );
   }
@@ -36,8 +37,9 @@ export default function AuthNavLinks() {
   return (
     <>
       {admin && (
-        <Link href={"/admin/products"} className="bg-emerald-500 hover:bg-emerald-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md text-white">
-          Admin Panel
+        <Link href={"/admin/products"} className="bg-emerald-500 hover:bg-emerald-600 transition-colors px-3 sm:px-5 py-2 rounded-lg font-bold text-xs sm:text-sm shadow-md text-white">
+          <span className="hidden sm:inline">Admin Panel</span>
+          <span className="sm:hidden material-icons-round text-base">admin_panel_settings</span>
         </Link>
       )}
 
@@ -49,15 +51,16 @@ export default function AuthNavLinks() {
           </div>
           <button
             onClick={handleLogout}
-            className="bg-secondary hover:bg-red-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md flex items-center gap-2 text-white"
+            className="bg-secondary hover:bg-red-600 transition-colors px-3 sm:px-5 py-2 rounded-lg font-bold text-xs sm:text-sm shadow-md flex items-center gap-1 sm:gap-2 text-white"
           >
             <span className="material-icons-round text-base">logout</span>
-            Cerrar Sesión
+            <span className="hidden sm:inline">Cerrar Sesión</span>
           </button>
         </>
       ) : (
-        <Link href={"/login"} className="bg-primary hover:bg-indigo-700 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md text-white">
-          Iniciar Sesión
+        <Link href={"/login"} className="bg-primary hover:bg-indigo-700 transition-colors px-3 sm:px-5 py-2 rounded-lg font-bold text-xs sm:text-sm shadow-md text-white">
+          <span className="hidden sm:inline">Iniciar Sesión</span>
+          <span className="sm:hidden material-icons-round text-base">login</span>
         </Link>
       )}
     </>
