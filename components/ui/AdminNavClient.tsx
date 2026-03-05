@@ -15,10 +15,10 @@ export default function AdminNavClient() {
   };
 
   return (
-    <nav className="bg-surface-dark text-white px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-lg">
-      <div className="flex items-center space-x-8">
+    <nav className="bg-surface-dark text-white px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between sticky top-0 z-50 shadow-lg">
+      <div className="flex items-center space-x-4 sm:space-x-8">
         <Logo />
-        <div className="hidden md:flex space-x-6 text-sm font-semibold uppercase tracking-wider">
+        <div className="flex space-x-3 sm:space-x-6 text-xs sm:text-sm font-semibold uppercase tracking-wider">
           <Link
             href={'/admin/products'}
             className="hover:text-emerald-400 transition-colors"
@@ -31,10 +31,10 @@ export default function AdminNavClient() {
         </div>
       </div>
 
-      <div className="flex items-center space-x-6">
+      <div className="flex items-center space-x-3 sm:space-x-6">
         <Link
           href={'/'}
-          className="bg-emerald-500 hover:bg-emerald-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md"
+          className="bg-emerald-500 hover:bg-emerald-600 transition-colors px-3 sm:px-5 py-2 rounded-lg font-bold text-xs sm:text-sm shadow-md"
         >Tienda</Link>
 
         {user && (
@@ -45,10 +45,10 @@ export default function AdminNavClient() {
             </div>
             <button
               onClick={handleLogout}
-              className="bg-secondary hover:bg-red-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md flex items-center gap-2 cursor-pointer"
+              className="bg-secondary hover:bg-red-600 transition-colors px-3 sm:px-5 py-2 rounded-lg font-bold text-xs sm:text-sm shadow-md flex items-center gap-1 sm:gap-2 cursor-pointer"
             >
               <span className="material-icons-round text-base">logout</span>
-              Cerrar Sesión
+              <span className="hidden sm:inline">Cerrar Sesión</span>
             </button>
           </>
         )}
