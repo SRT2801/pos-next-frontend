@@ -1,5 +1,6 @@
 "use server";
 
+import { serverApiFetch } from "@/services/serverApi";
 import { ErrorResponseSchema, ProductFormSchema } from "@/src/schemas";
 
 type ActionStateType = {
@@ -28,34 +29,29 @@ export async function addProduct(
     };
   }
 
-  const url = `${process.env.API_URL}/products`;
-  const req = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(product.data),
-  });
+  try {
+    await serverApiFetch("/products", {
+      method: "POST",
+      body: JSON.stringify(product.data),
+    });
 
-  const json = await req.json();
-
-  if (!req.ok) {
-    const errors = ErrorResponseSchema.parse(json);
     return {
-      errors: errors.message.map((issue) => issue),
-      success: "",
+      errors: [],
+      success: "Producto agregado exitosamente",
     };
-  }
-
-  if (!req.ok) {
+  } catch (error: any) {
+    if (error?.message) {
+      const errors = ErrorResponseSchema.safeParse(error);
+      if (errors.success) {
+        return {
+          errors: errors.data.message.map((issue) => issue),
+          success: "",
+        };
+      }
+    }
     return {
       errors: ["Error al agregar el producto"],
       success: "",
     };
   }
-
-  return {
-    errors: [],
-    success: "Producto agregado exitosamente",
-  };
 }
