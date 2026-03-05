@@ -1,6 +1,7 @@
 import { serverApiFetch } from "@/services/serverApi";
 import { CategoryWithProductsResponseSchema } from "@/src/schemas";
 import ProductCard from "@/components/products/ProductCard";
+import HeroBanner from "@/components/ui/HeroBanner";
 import { redirect } from "next/navigation";
 
 type Params = Promise<{ categoryId: string }>
@@ -22,10 +23,13 @@ export default async function StorePage({ params }: { params: Params }) {
 
 
     return (
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {category.products.map(product => (
-                <ProductCard key={product.id} product={product} />
-            ))}
-        </div>
+        <>
+            <HeroBanner />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {category.products.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                ))}
+            </div>
+        </>
     )
 }
