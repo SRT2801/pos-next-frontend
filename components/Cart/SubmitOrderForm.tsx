@@ -2,11 +2,14 @@ import { submitOrderAction } from "@/actions/submit-order-action"
 import { useActionState, useEffect } from "react"
 import { useStore } from "@/src/store";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { isAuthenticated } from "@/services/AuthService";
 import LoadingOverlay from "../ui/LoadingOverlay";
 
 
 export default function SubmitOrderForm() {
 
+    const router = useRouter()
     const total = useStore((state) => state.total)
     const coupon = useStore((state) => state.coupon.name)
     const contents = useStore((state) => state.contents)
@@ -36,6 +39,15 @@ export default function SubmitOrderForm() {
         }
     }, [state.success])
 
+    const handleSubmit = (formData: FormData) => {
+        if (!isAuthenticated()) {
+            toast.error("Debes iniciar sesión para realizar una compra")
+            router.push("/login")
+            return
+        }
+        dispatch(formData)
+    }
+
     return (
         <>
             <LoadingOverlay
@@ -43,7 +55,7 @@ export default function SubmitOrderForm() {
                 message="Realizando compra..."
             />
 
-            <form action={dispatch}>
+            <form action={handleSubmit}>
 
                 <input type="submit"
                     className="mt-5 w-full bg-indigo-600 hover:bg-indigo-700 text-white uppercase font-bold p-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
