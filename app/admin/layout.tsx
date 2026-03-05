@@ -10,8 +10,8 @@ export default function RootLayout({
   return (
     <AdminGuard>
       <AdminNavClient />
-      <div className="lg:min-h-screen container mx-auto mt-10 px-10 lg:px-0">
-        <div className="bg-white shadow w-full  mx-auto p-10 my-10 lg:w-3/5" >
+      <div className="lg:min-h-screen container mx-auto mt-4 sm:mt-10 px-4 sm:px-6 lg:px-0">
+        <div className="bg-white shadow w-full mx-auto p-4 sm:p-6 lg:p-10 my-4 sm:my-10 lg:w-3/5 rounded-lg" >
           {children}
         </div>
       </div>
