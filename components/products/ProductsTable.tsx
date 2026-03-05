@@ -10,10 +10,10 @@ export default function ProductsTable({ products }: { products: Product[] }) {
 
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 mt-10">
-      <div className="mt-8 flow-root ">
+    <div className="mt-10">
+      <div className="mt-8 flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8 bg-white p-5 ">
+          <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8 bg-white p-3 sm:p-5">\n
             <table className="min-w-full divide-y divide-gray-300 ">
               <thead>
                 <tr>
@@ -58,8 +58,8 @@ export default function ProductsTable({ products }: { products: Product[] }) {
                     <td className="px-3 py-4 text-sm text-gray-500">
                       {isAvalilable(product.inventory) ? (
                         product.inventory
-                      ): <p className="bg-red-600 rounded-lg px-3 py-1 text-white text-center text-sm uppercase font-bold">Agotado</p> }
-                     
+                      ) : <p className="bg-red-600 rounded-lg px-3 py-1 text-white text-center text-sm uppercase font-bold">Agotado</p>}
+
                     </td>
                     <td className="relative py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0 ">
                       <div className='flex gap-5 justify-end items-center'>
