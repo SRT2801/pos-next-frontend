@@ -1,17 +1,16 @@
+import { serverApiFetch } from "@/services/serverApi";
 import { Product } from "@/src/schemas";
 import { revalidatePath } from "next/cache";
 
 
 export default function DeleteProductForm({ productId }: { productId: Product["id"] }) {
 
-    const handleDeleteProduct = async ({ }) => {
+    const handleDeleteProduct = async () => {
         "use server"
 
-        const url = `${process.env.API_URL}/products/${productId}`;
-        const req = await fetch(url, {
+        await serverApiFetch(`/products/${productId}`, {
             method: "DELETE",
         });
-        await req.json();
         revalidatePath("/admin/products")
     }
 
