@@ -27,7 +27,7 @@ export default function AuthNavLinks() {
   // No renderizar hasta que estemos en el cliente para evitar hydration mismatch
   if (!mounted) {
     return (
-      <Link href={"/login"} className="font-bold p-2 rounded bg-indigo-500 text-white py-2 px-6">
+      <Link href={"/login"} className="bg-primary hover:bg-indigo-700 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md text-white">
         Iniciar Sesión
       </Link>
     );
@@ -36,23 +36,27 @@ export default function AuthNavLinks() {
   return (
     <>
       {admin && (
-        <Link href={"/admin/products"} className="font-bold p-2 rounded bg-green-400 py-2 px-10">
-          Administración Panel
+        <Link href={"/admin/products"} className="bg-emerald-500 hover:bg-emerald-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md text-white">
+          Admin Panel
         </Link>
       )}
 
       {authenticated ? (
         <>
-          <span className="text-gray-300 text-sm">{userEmail}</span>
+          <div className="hidden lg:flex flex-col items-end">
+            <span className="text-xs text-slate-400">Sesión iniciada como</span>
+            <span className="text-sm font-medium">{userEmail}</span>
+          </div>
           <button
             onClick={handleLogout}
-            className="font-bold p-2 rounded bg-red-500 hover:bg-red-600 text-white py-2 px-6 transition-colors"
+            className="bg-secondary hover:bg-red-600 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md flex items-center gap-2 text-white"
           >
+            <span className="material-icons-round text-base">logout</span>
             Cerrar Sesión
           </button>
         </>
       ) : (
-        <Link href={"/login"} className="font-bold p-2 rounded bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-6 transition-colors">
+        <Link href={"/login"} className="bg-primary hover:bg-indigo-700 transition-colors px-5 py-2 rounded-lg font-bold text-sm shadow-md text-white">
           Iniciar Sesión
         </Link>
       )}
