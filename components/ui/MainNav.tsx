@@ -1,14 +1,13 @@
+import { serverApiFetch } from "@/services/serverApi";
 import { CategoriesResponseSchema } from "@/src/schemas";
 import Logo from "./Logo";
 import Link from "next/link";
+import AuthNavLinks from "./AuthNavLinks";
 
 async function getCategories() {
-    const url = `${process.env.API_URL}/categories`
-    const req = await fetch(url)
-    const json = await req.json()
-    const categories = CategoriesResponseSchema.parse(json)
-    return categories
-
+    const json = await serverApiFetch("/categories");
+    const categories = CategoriesResponseSchema.parse(json);
+    return categories;
 }
 
 export default async function MainNav() {
@@ -29,9 +28,7 @@ export default async function MainNav() {
                     </Link>
                 ))}
 
-                <Link href={'/admin/sales'} className=" font-bold p-2 rounded bg-green-400 py-2 px-10">
-                    Administración Panel
-                </Link>
+                <AuthNavLinks />
             </nav>
         </header>
     )
