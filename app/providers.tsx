@@ -5,6 +5,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { PrimeReactProvider } from 'primereact/api'
 
 function makeQueryClient() {
   return new QueryClient({
@@ -21,18 +22,18 @@ let browserQueryClient: QueryClient | undefined = undefined
 
 function getQueryClient() {
   if (isServer) {
-    // Servidor: siempre generar un Query Client
     return makeQueryClient()
   } else {
-    // Cliente: Solo genera el QueryClient si no tenemos uno
     if (!browserQueryClient) browserQueryClient = makeQueryClient()
     return browserQueryClient
   }
 }
 
-export default function Providers({ children }: {children: React.ReactNode}) {
+export default function Providers({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient()
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <PrimeReactProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    </PrimeReactProvider>
   )
 }
