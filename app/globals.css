@@ -1,1 +1,25 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #6366f1;
+  --color-secondary: #ef4444;
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #1e293b;
+  --color-background-light: #f1f5f9;
+  --color-background-dark: #0f172a;
+}
+
+body {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
