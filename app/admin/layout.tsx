@@ -10,11 +10,9 @@ export default function RootLayout({
   return (
     <AdminGuard>
       <AdminNavClient />
-      <div className="lg:min-h-screen container mx-auto mt-4 sm:mt-10 px-4 sm:px-6 lg:px-0">
-        <div className="bg-white shadow w-full mx-auto p-4 sm:p-6 lg:p-10 my-4 sm:my-10 lg:w-3/5 rounded-lg" >
-          {children}
-        </div>
-      </div>
+      <main className="min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        {children}
+      </main>
       <ToastNotifications />
     </AdminGuard>
   );
