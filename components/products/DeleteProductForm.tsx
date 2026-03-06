@@ -1,23 +1,51 @@
-import { serverApiFetch } from "@/services/serverApi";
+"use client";
+
+import { deleteProduct } from "@/actions/delete-product-action";
 import { Product } from "@/src/schemas";
-import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 
-export default function DeleteProductForm({ productId }: { productId: Product["id"] }) {
+type DeleteProductFormProps = {
+    productId: Product["id"];
+    className?: string;
+    children?: React.ReactNode;
+};
 
-    const handleDeleteProduct = async () => {
-        "use server"
+export default function DeleteProductForm({ productId, className = "", children }: DeleteProductFormProps) {
+    const router = useRouter();
+    const deleteProductWithId = deleteProduct.bind(null, productId);
 
-        await serverApiFetch(`/products/${productId}`, {
-            method: "DELETE",
-        });
-        revalidatePath("/admin/products")
-    }
+    const [state, dispatch, isPending] = useActionState(deleteProductWithId, {
+        errors: [],
+        success: "",
+    });
+
+    useEffect(() => {
+        if (state.errors.length) {
+            state.errors.forEach((error) => toast.error(error));
+        }
+
+        if (state.success) {
+            toast.success(state.success);
+            router.refresh();
+        }
+    }, [state, router]);
+
 
     return (
 
-        <form action={handleDeleteProduct}>
-            <input type="submit" className="text-red-600 hover:text-red-800 cursor-pointer" value={'Eliminar'} />
+        <form action={dispatch}>
+            <button
+                type="submit"
+                disabled={isPending}
+                className={`cursor-pointer disabled:opacity-60 ${className}`}
+                title="Eliminar"
+                aria-label="Eliminar producto"
+            >
+                {isPending ? <i className="pi pi-spinner pi-spin" /> : (children ?? "Eliminar")}
+            </button>
 
         </form>
     )
